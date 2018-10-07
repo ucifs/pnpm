@@ -206,6 +206,9 @@ export default async (
       }
     }
   }
+  if (opts.shrinkwrapDirectory === null) { // tslint:disable-line
+    delete opts.shrinkwrapDirectory
+  }
   const defaultOpts = await defaults(opts)
   const extendedOpts = {
     ...defaultOpts,
