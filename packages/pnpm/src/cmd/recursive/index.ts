@@ -340,7 +340,7 @@ function sortPackages (pkgGraph: {[nodeId: string]: PackageNode}): string[][] {
             [['b'], ['c'], ['a']]
 
         */
-        d => d !== pkgPath &&
+        (d) => d !== pkgPath &&
         /* remove unused dependencies that we can ignore due to a filter expression.
 
         Again, the graph sequencer used to behave weirdly in the following edge case:
@@ -358,7 +358,8 @@ function sortPackages (pkgGraph: {[nodeId: string]: PackageNode}): string[][] {
 
         But we really want 'a' to be executed first.
         */
-        setOfKeys.has(d))]
+        setOfKeys.has(d)),
+      ],
     ) as Array<[string, string[]]>,
   )
   const graphSequencerResult = graphSequencer({
