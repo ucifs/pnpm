@@ -503,6 +503,7 @@ importers:
       '@pnpm/read-package-json': 1.0.0
       '@pnpm/store-path': 1.0.3
       '@pnpm/types': 'link:../types'
+      '@pnpm/utils': 'link:../utils'
       '@types/node': 10.12.0
       dependency-path: 2.0.0
       pnpm-shrinkwrap: 'link:../shrinkwrap'
@@ -525,6 +526,7 @@ importers:
       '@pnpm/read-package-json': 1.0.0
       '@pnpm/store-path': 1.0.3
       '@pnpm/types': 1.8.0
+      '@pnpm/utils': 0.9.0-0
       '@types/node': 10.12.0
       '@types/tape': ^4.2.31
       dependency-path: 2.0.0
