@@ -559,7 +559,7 @@ async function installInContext (
     if (newPkg) {
       const shrImporter = ctx.wantedShrinkwrap.importers[importer.id]
       ctx.wantedShrinkwrap.importers[importer.id] = addDirectDependenciesToShrinkwrap(
-        newPkg,
+        opts.hooks && opts.hooks.readPackage ? opts.hooks.readPackage(newPkg) : newPkg,
         shrImporter,
         importer.linkedPackages,
         resolvedImporter.directDependencies,
