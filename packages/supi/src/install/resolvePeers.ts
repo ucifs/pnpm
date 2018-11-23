@@ -31,6 +31,7 @@ export interface DependenciesGraphNode {
   fetchingFiles: Promise<PackageFilesResponse>,
   fetchingRawManifest?: Promise<PackageJson>,
   resolution: Resolution,
+  passedPeers: string[],
   peripheralLocation: string,
   children: {[alias: string]: string},
   // an independent package is a package that
@@ -237,6 +238,9 @@ function resolvePeersOfNode (
       name: node.resolvedPackage.name,
       optional: node.resolvedPackage.optional,
       optionalDependencies: node.resolvedPackage.optionalDependencies,
+      passedPeers: !node.resolvedPackage.additionalInfo.peerDependencies
+        ? R.keys(allResolvedPeers)
+        : R.keys(allResolvedPeers).filter((peerName) => !node.resolvedPackage.additionalInfo.peerDependencies![peerName]),
       peripheralLocation,
       prepare: node.resolvedPackage.prepare,
       prod: node.resolvedPackage.prod,

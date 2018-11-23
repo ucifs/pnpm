@@ -172,6 +172,9 @@ function toShrDependency (
       relativeDepPath: opts.relDepPath,
     })
   }
+  if (depNode.passedPeers.length) {
+    result['passedPeers'] = depNode.passedPeers
+  }
   depNode.requiresBuild = result['requiresBuild']
   // tslint:enable:no-string-literal
   return result
