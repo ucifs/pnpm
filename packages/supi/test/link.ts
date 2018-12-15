@@ -1,3 +1,4 @@
+import { RootLog } from '@pnpm/core-loggers'
 import { isExecutable } from '@pnpm/assert-project'
 import prepare from '@pnpm/prepare'
 import { Shrinkwrap } from '@pnpm/shrinkwrap-file'
@@ -14,7 +15,6 @@ import {
   link,
   linkFromGlobal,
   linkToGlobal,
-  RootLog,
 } from 'supi'
 import symlink from 'symlink-dir'
 import tape = require('tape')
