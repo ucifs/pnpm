@@ -1858,7 +1858,7 @@ packages:
   /@commitlint/cli/7.3.1:
     dependencies:
       '@commitlint/format': 7.3.1
-      '@commitlint/lint': 7.3.1
+      '@commitlint/lint': 7.3.2
       '@commitlint/load': 7.3.1
       '@commitlint/read': 7.3.1
       babel-polyfill: 6.26.0
@@ -1915,17 +1915,18 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-Fz7Of30YKVg+wCJZK9qqojJiD45a4P32LLvXCHEb4/TLSwlKp/K/H6VeWK8kN4uUZHCx60PsKc6829l2Fm28Sw==
-  /@commitlint/lint/7.3.1:
+  /@commitlint/lint/7.3.2:
     dependencies:
       '@commitlint/is-ignored': 7.3.1
       '@commitlint/parse': 7.3.1
       '@commitlint/rules': 7.3.1
       babel-runtime: 6.26.0
+      lodash: 4.17.11
     dev: true
     engines:
       node: '>=4'
     resolution:
-      integrity: sha512-aPfjqoOHhXDbA7pb+S7yGv8SsgCgfpOXybzO2NoiqVIvcuWXE+FuqVYDLjmzjvptYGYCB0oDFkewxoeHCzQOzg==
+      integrity: sha512-NInm96JP89lMNR77R4zJRj/vaQWc4Ie5vR/5G5auFFiHuwyKmRWfXbGMA7zVYpAylPRgewGaELhuRzNTUW0Log==
   /@commitlint/load/7.3.1:
     dependencies:
       '@commitlint/execute-rule': 7.3.1
