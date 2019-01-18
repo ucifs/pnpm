@@ -72,13 +72,19 @@ export function parse (dependencyPath: string) {
   const name = parts[0].startsWith('@')
     ? `${parts.shift()}/${parts.shift()}`
     : parts.shift()
-  const version = parts.shift()
-  if (version && semver.valid(version)) {
-    return {
-      host,
-      isAbsolute: _isAbsolute,
-      name,
-      version,
+  let version = parts.shift()
+  if (version) {
+    const underscoreIndex = version.indexOf('_')
+    if (underscoreIndex !== -1) {
+      version = version.substr(0, underscoreIndex)
+    }
+    if (semver.valid(version)) {
+      return {
+        host,
+        isAbsolute: _isAbsolute,
+        name,
+        version,
+      }
     }
   }
   if (!_isAbsolute) throw new Error(`${dependencyPath} is an invalid relative dependency path`)
