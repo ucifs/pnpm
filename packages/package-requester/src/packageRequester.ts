@@ -45,6 +45,7 @@ export default function (
   fetchers: {[type: string]: FetchFunction},
   opts: {
     networkConcurrency?: number,
+    registryMirrorDir: string,
     storePath: string,
     storeIndex: StoreIndex,
   },
@@ -65,6 +66,7 @@ export default function (
   const fetchPackageToStore = fetchToStore.bind(null, {
     fetch,
     fetchingLocker: new Map(),
+    registryMirrorDir: opts.registryMirrorDir,
     requestsQueue,
     storeIndex: opts.storeIndex,
     storePath: opts.storePath,
@@ -212,8 +214,8 @@ async function resolveAndFetch (
     const fetchResult = ctx.fetchPackageToStore({
       fetchRawManifest: updated || !pkg,
       force: forceFetch,
+      package: pkg,
       pkgId: id,
-      pkgName: pkg && pkg.name,
       prefix: options.shrinkwrapDirectory,
       resolution: resolution,
       verifyStoreIntegrity: options.verifyStoreIntegrity,
@@ -250,6 +252,7 @@ function fetchToStore (
       fetchingRawManifest?: Promise<PackageJson>,
       inStoreLocation: string,
     }>,
+    registryMirrorDir: string,
     requestsQueue: {add: <T>(fn: () => Promise<T>, opts: {priority: number}) => Promise<T>},
     storeIndex: StoreIndex,
     storePath: string,
@@ -257,7 +260,10 @@ function fetchToStore (
   opts: {
     fetchRawManifest?: boolean,
     force: boolean,
-    pkgName?: string,
+    package?: {
+      name: string,
+      version: string,
+    },
     pkgId: string,
     prefix: string,
     resolution: Resolution,
@@ -411,7 +417,9 @@ function fetchToStore (
           const priority = (++ctx.requestsQueue['counter'] % ctx.requestsQueue['concurrency'] === 0 ? -1 : 1) * 1000 // tslint:disable-line
 
           const fetchedPackage = await ctx.requestsQueue.add(() => ctx.fetch(opts.resolution, target, {
-            cachedTarballLocation: path.join(ctx.storePath, opts.pkgId, 'packed.tgz'),
+            cachedTarballLocation: opts.resolution.type === undefined && opts.package
+              ? path.join(ctx.registryMirrorDir, opts.package.name, `${removeScope(opts.package.name)}-${opts.package.version}.tgz`)
+              : path.join(ctx.storePath, opts.pkgId, 'packed.tgz'),
             onProgress: (downloaded) => {
               fetchingProgressLogger.debug({
                 downloaded,
@@ -467,7 +475,7 @@ function fetchToStore (
       }
       finishing.resolve(undefined)
 
-      let pkgName: string | undefined = opts.pkgName
+      let pkgName: string | undefined = opts.package && opts.package.name
       if (!pkgName || opts.fetchRawManifest) {
         const pkg = await readPkgFromDir(tempLocation)
         fetchingRawManifest.resolve(pkg)
@@ -500,6 +508,11 @@ function fetchToStore (
       }
     }
   }
+}
+
+function removeScope (name: string): string {
+  if (name[0] === '@') return name.substr(name.indexOf('/') + 1)
+  return name
 }
 
 async function tarballSatisfiesIntegrity (wantedIntegrity: string, pkgInStoreLocation: string) {

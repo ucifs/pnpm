@@ -52,7 +52,10 @@ export type FetchPackageToStoreFunction = (
 export interface FetchPackageToStoreOptions {
   fetchRawManifest?: boolean,
   force: boolean,
-  pkgName?: string,
+  package?: {
+    name: string,
+    version: string,
+  },
   pkgId: string,
   prefix: string,
   resolution: Resolution,

@@ -41,6 +41,7 @@ test('request package', async t => {
   const storeIndex = {}
   const requestPackage = createPackageRequester(resolve, fetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex,
     storePath: '.store',
   })
@@ -95,6 +96,7 @@ test('request package', async t => {
 test('request package but skip fetching', async t => {
   const requestPackage = createPackageRequester(resolve, fetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex: {},
     storePath: '.store',
   })
@@ -142,6 +144,7 @@ test('request package but skip fetching', async t => {
 test('request package but skip fetching, when resolution is already available', async t => {
   const requestPackage = createPackageRequester(resolve, fetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex: {},
     storePath: '.store',
   })
@@ -224,6 +227,7 @@ test('refetch local tarball if its integrity has changed', async t => {
 
   {
     const requestPackage = createPackageRequester(localResolver as ResolveFunction, fetch, {
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -251,6 +255,7 @@ test('refetch local tarball if its integrity has changed', async t => {
 
   {
     const requestPackage = createPackageRequester(localResolver as ResolveFunction, fetch, {
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -275,6 +280,7 @@ test('refetch local tarball if its integrity has changed', async t => {
 
   {
     const requestPackage = createPackageRequester(localResolver as ResolveFunction, fetch, {
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -323,6 +329,7 @@ test('refetch local tarball if its integrity has changed. The requester does not
 
   {
     const requestPackage = createPackageRequester(localResolver as ResolveFunction, fetch, {
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -344,6 +351,7 @@ test('refetch local tarball if its integrity has changed. The requester does not
 
   {
     const requestPackage = createPackageRequester(localResolver as ResolveFunction, fetch, {
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -362,6 +370,7 @@ test('refetch local tarball if its integrity has changed. The requester does not
 
   {
     const requestPackage = createPackageRequester(localResolver as ResolveFunction, fetch, {
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -383,6 +392,7 @@ test('refetch local tarball if its integrity has changed. The requester does not
 test('fetchPackageToStore()', async (t) => {
   const packageRequester = createPackageRequester(resolve, fetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex: {},
     storePath: '.store',
   })
@@ -434,6 +444,7 @@ test('fetchPackageToStore()', async (t) => {
 test('fetchPackageToStore() concurrency check', async (t) => {
   const packageRequester = createPackageRequester(resolve, fetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex: {},
     storePath: '.store',
   })
@@ -521,6 +532,7 @@ test('fetchPackageToStore() does not cache errors', async (t) => {
 
   const packageRequester = createPackageRequester(resolve, noRetryFetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex: {},
     storePath: tempy.directory(),
   })
@@ -572,6 +584,7 @@ test('fetchPackageToStore() does not cache errors', async (t) => {
 test('always return a package manifest in the response', async t => {
   const requestPackage = createPackageRequester(resolve, fetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex: {},
     storePath: '.store',
   })
@@ -629,6 +642,7 @@ test('fetchPackageToStore() fetch raw manifest of cached package', async (t) => 
 
   const packageRequester = createPackageRequester(resolve, fetch, {
     networkConcurrency: 1,
+    registryMirrorDir: 'pnpm-registry',
     storeIndex: {},
     storePath: tempy.directory(),
   })
@@ -676,6 +690,7 @@ test('refetch package to store if it has been modified', async (t) => {
   {
     const packageRequester = createPackageRequester(resolve, fetch, {
       networkConcurrency: 1,
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -706,6 +721,7 @@ test('refetch package to store if it has been modified', async (t) => {
   {
     const packageRequester = createPackageRequester(resolve, fetch, {
       networkConcurrency: 1,
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -750,6 +766,7 @@ test('refetch package to store if it has no integrity checksums and verification
   {
     const packageRequester = createPackageRequester(resolve, fetch, {
       networkConcurrency: 1,
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
@@ -775,6 +792,7 @@ test('refetch package to store if it has no integrity checksums and verification
   {
     const packageRequester = createPackageRequester(resolve, fetch, {
       networkConcurrency: 1,
+      registryMirrorDir: 'pnpm-registry',
       storeIndex,
       storePath,
     })
